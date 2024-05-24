@@ -12,7 +12,7 @@ const Navbar = () => {
   const path = usePathname();
 
   return (
-    <nav className="flex space-x-6 border-b h-14 px-4 items-center ">
+    <nav className="flex space-x-6 border-b h-14 px-4 items-center mb-5">
       <Link href="/">
         <FaBug />
       </Link>

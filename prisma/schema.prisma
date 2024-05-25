@@ -17,13 +17,13 @@ model Issue {
   id Int @id @default(autoincrement())
   title String @db.VarChar(255) // required
   description String @db.Text
-  status Status @default(OPNEN)
+  status Status @default(OPEN)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 enum Status {
-  OPNEN
+  OPEN
   IN_PROGRESS
   CLOSED
 }

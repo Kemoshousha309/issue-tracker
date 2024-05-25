@@ -1,11 +1,13 @@
 "use client";
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Button, Callout, TextField, Text, Spinner } from "@radix-ui/themes";
 import React, { useState } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createIssueSchema } from "@/app/schema";
 
 interface FormInputs {
   title: string;
@@ -25,7 +27,14 @@ interface ErrorResponse {
 }
 
 const NewIssuePage = () => {
-  const { register, handleSubmit, control } = useForm<FormInputs>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<FormInputs>({
+    resolver: zodResolver(createIssueSchema),
+  });
   const router = useRouter();
   const [serverErr, setServerErr] = useState("");
   return (
@@ -40,23 +49,36 @@ const NewIssuePage = () => {
           try {
             await axios.post("/api/issues", { ...data });
             router.push("/");
-            setServerErr("");
           } catch (error) {
             const err = error as AxiosError;
             const errResponse = err.response?.data as ErrorResponse;
-            const fieldErr = errResponse.errors.title || errResponse.errors.description;
+            const fieldErr =
+              errResponse.errors.title || errResponse.errors.description;
             setServerErr(fieldErr._errors[0]);
           }
         })}
         className="space-y-4"
       >
         <TextField.Root placeholder="Issue Name" {...register("title")} />
+        {errors.title && (
+          <Text as="p" color="red">
+            {errors.title.message}
+          </Text>
+        )}
         <Controller
           name="description"
           control={control}
           render={({ field }) => <SimpleMDE {...field} />}
         />
-        <Button>Submit</Button>
+        {errors.description && (
+          <Text as="p" color="red">
+            {errors.description.message}
+          </Text>
+        )}
+        <Button disabled={isSubmitting} className="cursor-pointer">
+          {" "}
+          {isSubmitting && <Spinner />} Submit
+        </Button>
       </form>
     </div>
   );

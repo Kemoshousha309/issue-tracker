@@ -6,7 +6,6 @@ import { IssueSchema } from "@/app/schema";
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-
     const validation = IssueSchema.safeParse(body)
     if(!validation.success)
         return NextResponse.json({errors: validation.error.format()}, {status: 400})

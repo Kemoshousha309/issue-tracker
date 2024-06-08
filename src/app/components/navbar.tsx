@@ -3,7 +3,7 @@ import { Avatar, Box, Container, DropdownMenu, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FaBug } from "react-icons/fa";
 
 const Navbar = () => {
@@ -13,6 +13,7 @@ const Navbar = () => {
   ];
   const { status, data: session } = useSession();
   const path = usePathname();
+  const route = useRouter()
 
   return (
     <nav className="border-b px-4 mb-5">
@@ -34,6 +35,7 @@ const Navbar = () => {
                   }
                 )}
                 href={`${l.href}`}
+                // onClick={() => route.refresh()}
               >
                 {l.label}
               </Link>

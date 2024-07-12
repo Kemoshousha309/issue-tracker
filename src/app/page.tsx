@@ -6,6 +6,7 @@ import StatusChart from './components/StatusChart';
 import { Flex, Grid } from '@radix-ui/themes';
 import { Metadata } from 'next';
 export default async function Home() {
+  console.log("home page render")
   const open = await prisma.issue.count({where: {status: "OPEN"}})
   const inProgress = await prisma.issue.count({where: {status: "IN_PROGRESS"}})
   const closed = await prisma.issue.count({where: {status: "CLOSED"}})

@@ -19,6 +19,7 @@ interface Props {
     inProgress: number,
   }
 const StatusChart = ({closed, inProgress ,open}: Props) => {
+  console.log("chart run")
   const data = [
     {
       name: "Open",

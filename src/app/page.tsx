@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 import LatestIssues from "./components/LatestIssues";
 import IssuesSummary from './components/IssuesSummary';
 import prisma from '../../prisma/client';
@@ -21,7 +20,6 @@ export default async function Home() {
     </Grid>
   );
 }
-revalidatePath('/')
 
 export const metadata: Metadata = {
   title: "Issue Tracker - Dashboard",

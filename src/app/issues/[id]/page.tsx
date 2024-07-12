@@ -1,4 +1,3 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Box, Flex } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
@@ -9,6 +8,7 @@ import IssueDetails from "./_components/IssueDetails";
 import prisma from "../../../../prisma/client";
 import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
+import { authOptions } from "@/app/api/auth/[...nextauth]/utils";
 
 const IssuesPage = async ({ params: { id } }: { params: { id: string } }) => {
   if (!parseInt(id)) notFound();

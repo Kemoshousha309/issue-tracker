@@ -3,10 +3,10 @@ import prisma from "../../../../prisma/client";
 import IssuesActions from "./issuesAction";
 import { Link, IssueStatusBadge } from "@/app/components";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Issue, Status } from "@prisma/client";
 import NextLink from "next/link";
 import Pagination from "../_components/pagination";
+import { authOptions } from "@/app/api/auth/[...nextauth]/utils";
 
 const columns: { label: string; value: keyof Issue; className?: string }[] = [
   { label: "Issue", value: "title" },
